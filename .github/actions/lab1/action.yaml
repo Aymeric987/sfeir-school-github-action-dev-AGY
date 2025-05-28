@@ -1,18 +1,6 @@
-name: 'Syntax:Lab1'
-description: 'Action of Lab1 in Syntax section'
-inputs:
-  say:
-    description: What does the cow say ?
-    required: false
-    default: Hello World
-  eyes:
-    description: how the eyes look like ?
-    required: false
-    default: oo
+name: 'check package json'
+description: 'Action of Lab1 to check if package-lock is missing'
+
 runs:
-  using: 'docker'
-  image: 'docker://rancher/cowsay:latest'
-  args:
-    - -e
-    - ${{ inputs.eyes }}
-    - ${{ inputs.say }}
+  using: 'node16'
+  main: ./index.js
