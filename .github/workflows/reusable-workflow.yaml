@@ -19,6 +19,7 @@ jobs:
         shell: bash
 
       - name: call linter action
+        id: call-linter
         uses: ./.github/actions/lab40
         with:
           dir: ${{inputs.dir}}
@@ -30,12 +31,10 @@ jobs:
           github-token: $GITHUB_TOKEN
           result-encoding: string
           script: |
-            const fs = require('fs').promises;
-            var reportBulk = (await fs.readFile("tmp.txt")).toString();
             const output = `### Lint 📖
             <details>
             \`\`\`
-            `+reportBulk+`
+            `+${{steps.call-linter.outputs.report}}+`
             \`\`\`
             </details>`
             return output;
