@@ -10,3 +10,9 @@ setup() {
     run addition.sh 5 5
     assert_output 10
 }
+
+@test "check addition is not working" {
+    run addition.sh 5
+    assert_failure
+    assert_output --partial "command line arguments are missing"
+}
