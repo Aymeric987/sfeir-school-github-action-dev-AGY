@@ -31,10 +31,10 @@ jobs:
           github-token: $GITHUB_TOKEN
           result-encoding: string
           script: |
-            const output = `### Lint 📖
+            const output = `#### Lint 📖
             <details>
             \`\`\`
-            `+${{steps.call-linter.outputs.report}}+`
+            ${{ steps.lint.output.report }}
             \`\`\`
             </details>`
             return output;
