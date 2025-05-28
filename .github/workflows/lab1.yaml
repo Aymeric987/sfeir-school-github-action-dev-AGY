@@ -1,5 +1,5 @@
 name: Test the Lab 1 of Interactions
-on: push
+on: workflow_dispatch
 jobs:
   test-interactions-lab1:
     runs-on: ubuntu-latest
