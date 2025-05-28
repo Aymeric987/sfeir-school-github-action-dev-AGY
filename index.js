@@ -1,20 +1,32 @@
 const glob = require('@actions/glob');
 const core = require('@actions/core');
-
-const pattern = '*/package-lock.json'
+const path = require('path');
+const fs = require('fs');
+const pattern = '*package.json';
+const excludePattern = '!**/node_modules/**';
 
 async function run() {
     try {
         core.info('Search for missing package-lock.json files');
-        const globber = await glob.create(pattern);
+        const globber = await glob.create([pattern, excludePattern]);
         const files = await globber.glob();
         files.forEach(file => {
             core.info(file);
         })
-    }
-    catch (error) {
+        files.forEach(file => {
+            try {
+                fs.accessSync(path.join(path.dirname(file), 'package-lock.json'));
+            } catch (err) {
+                core.warning('Consider to generate it and commit it', {
+                    file: file,
+                    title: 'Missing package-lock.json'
+                })
+            }
+        });
+    } catch (error) {
         core.setFailed(error.message);
     }
+
 }
 
 run()
