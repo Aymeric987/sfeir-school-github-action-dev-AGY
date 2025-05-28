@@ -2,13 +2,12 @@ const glob = require('@actions/glob');
 const core = require('@actions/core');
 const path = require('path');
 const fs = require('fs');
-const pattern = '*package.json';
-const excludePattern = '!**/node_modules/**';
+const pattern = ['*package.json', '!**/node_modules/**'];
 
 async function run() {
     try {
         core.info('Search for missing package-lock.json files');
-        const globber = await glob.create([pattern, excludePattern]);
+        const globber = await glob.create(pattern.join('\n'));
         const files = await globber.glob();
         files.forEach(file => {
             core.info(file);
