@@ -15,7 +15,7 @@ Overview text
 ## Table
 
 | Header 1 | Header 2 |
-| -------- | -------- |
+|----------|----------|
 | Value 11 | Value 21 |
 | Value 12 | Value 22 |
 | Value 13 | Value 23 |
