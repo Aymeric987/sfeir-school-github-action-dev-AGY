@@ -18,21 +18,10 @@ jobs:
           echo "DIRECTORY=${DIR}" >> $GITHUB_ENV
         shell: bash
 
-      - name: Linter installation
-        run: |
-          npm install -g markdownlint-cli
-        shell: bash
-
-      - name: Print markdownlint version
-        run: |
-          echo $(markdownlint -V)
-        shell: bash
-
-      - name: Lint the section markdown
-        continue-on-error: true
-        run: |
-          markdownlint ${{ env.DIRECTORY }}/*.md -o tmp.txt
-        shell: bash
+      - name: call linter action
+        uses: ./.github/actions/lab40
+          with:
+            dir: ${{inputs.dir}}
 
       - name: Format result
         id: format-result
@@ -57,7 +46,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: "github-actions[bot]"
-          body-includes: ${{ env.DIRECTORY }}
+          body-includes: ${{ inputs.dir }}
 
       - name: Create comment
         if: steps.fc.outputs.comment-id == ''
@@ -65,7 +54,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## ${{ env.DIRECTORY }}
+            ## ${{ inputs.dir }}
             ${{ steps.format-result.outputs.result }}
 
       - name: Update comment
@@ -74,6 +63,6 @@ jobs:
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           body: |
-            ## ${{ env.DIRECTORY }}
+            ## ${{ inputs.dir }}
             ${{ steps.format-result.outputs.result }}
           edit-mode: replace
