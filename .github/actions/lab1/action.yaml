@@ -3,4 +3,4 @@ description: 'Action of Lab1 to check if package-lock is missing'
 
 runs:
   using: 'node16'
-  main: ./index.js
+  main: index.js
