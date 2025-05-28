@@ -9,4 +9,5 @@ jobs:
       - name: bats test
         run: |
           echo "run test..."
+          ${GITHUB_WORKSPACE}/tests/bats/bin/bats ${GITHUB_WORKSPACE}/tests/lab-tests.bats
         shell: bash
