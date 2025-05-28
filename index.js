@@ -30,8 +30,10 @@ async function run() {
         } else {
             message = `Missing ${missingPackageLockJsonCount} package-lock.json files based on ${analysedPackageJsonCount} package.json files analysed`;
         }
-        core.summary.addHeading("Package.json analysis");
-        core.summary.addRaw(message);
+        await core.summary
+            .addHeading("Package.json analysis")
+            .addRaw(message)
+            .write();
     } catch (error) {
         core.setFailed(error.message);
     }
