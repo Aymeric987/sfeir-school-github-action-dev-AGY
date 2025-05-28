@@ -16,13 +16,13 @@ async function run() {
                 fs.accessSync(path.join(path.dirname(file), 'package-lock.json'));
             } catch (err) {
                 missingPackageLockJsonCount++;
-                core.warning('Consider to generate it and commit it', {
-                    file: file,
-                    title: 'Missing package-lock.json'
-                })
+                // core.warning('Consider to generate it and commit it', {
+                //     file: file,
+                //     title: 'Missing package-lock.json'
+                // })
             }
         });
-        let message = '';
+        let message;
         if (analysedPackageJsonCount === 0) {
             message = 'No package.json found';
         } else if (missingPackageLockJsonCount === 0) {
