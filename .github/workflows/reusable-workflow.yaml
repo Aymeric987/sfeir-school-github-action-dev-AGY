@@ -20,8 +20,8 @@ jobs:
 
       - name: call linter action
         uses: ./.github/actions/lab40
-          with:
-            dir: ${{inputs.dir}}
+        with:
+          dir: ${{inputs.dir}}
 
       - name: Format result
         id: format-result
