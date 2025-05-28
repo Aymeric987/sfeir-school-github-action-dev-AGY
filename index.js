@@ -7,7 +7,7 @@ const patterns = ['**/package.json', '!node_modules/**/package.json'];
 async function run() {
     try {
         core.info('Search for missing package-lock.json files');
-        const globber = await glob.create(pattern.join('\n'));
+        const globber = await glob.create(patterns.join('\n'));
         const files = await globber.glob();
         files.forEach(file => {
             try {
